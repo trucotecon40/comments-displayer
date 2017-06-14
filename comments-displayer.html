@@ -8,7 +8,7 @@
   <link rel="import" type="css" href="comments.css">
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <template>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   
 
     <body>
     <h1 style="text-align: center;">Comments</h1>
@@ -51,7 +51,7 @@
           if (cellValue == null) cellValue = "";
           row$.append($('<td/>').html(cellValue));
           if(selector=="#positiveTable"){
-          $(selector).append(row$);
+          this.$.positiveTable.append(row$);
         }
         }
       for (var i = 0; i < myList.length; i++) {
@@ -67,7 +67,7 @@
           if (cellValue == null) cellValue = "";
           row$.append($('<td/>').html(cellValue));
           if(selector=="#negativeTable"){
-          $(selector).append(row$);
+          this.$.negativeTable.append(row$);
         }
         }    
         
