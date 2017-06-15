@@ -45,7 +45,7 @@
           if (cellValue == null) cellValue = "";
           row$.append($('<td/>').html(cellValue));
           if(selector=="#positiveTable"){
-          selector.append(row$);
+          $(selector).append(row$);
         }
         }
       for (var i = 0; i < myList.length; i++) {
@@ -62,7 +62,7 @@
           if (cellValue == null) cellValue = "";
           row$.append($('<td/>').html(cellValue));
           if(selector=="#negativeTable"){
-          selector.append(row$);
+          $(selector).append(row$);
         }
         }    
         
