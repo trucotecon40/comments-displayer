@@ -7,16 +7,31 @@
   
   <body>
     <comments-displayer
-      data='{}'
-      object="otherObject"
-      stylebg="bg-red"
-      id="demo-chart2"
-      icon="icons:accessibility"
-      title="Custom title"
+    comments='{}'
+    id="comments-displayer1"
       ></comments-displayer>
     
     <script>
-     
+       var datas =[
+        {"hits": {
+                "data": [
+            { "comment": "Me parece bien", "sentiment": 1 },
+            { "comment": "Estoy de acuerdo", "sentiment": 1 },
+            { "comment": "Dislike", "sentiment": -1 },
+            { "comment": "El aliento de mi gato huele a comida de gato", "sentiment": 1 },
+            { "comment": "Pues se ha quedado una tarde espectacular para pegarse un tiro", "sentiment": -1 }]
+            },
+            "aggregations": {
+                "category": {
+                    "buckets": [
+                        {"key": "myObject", "doc_count": 3000},
+                        {"key": "otherObject", "doc_count": 1000}
+                    ]
+                }
+            }
+        }];
+      var cd1 = document.getElementById('sentiment-displayer1');
+      cd1.data = datas[0].hits.data;
     </script>
   </body>
 </html>
