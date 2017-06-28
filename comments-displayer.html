@@ -49,7 +49,7 @@
             properties: {
               comments: {
                 type: String,
-                value: ''
+                value: "{{comments}}"
               }              
             },
             _dataChanged: function() {
@@ -60,6 +60,7 @@
               }
             },
             getComments: function() {
+              console.log(this.comments);
               return this.comments;
             },
             displayComments: function(selector){
@@ -68,13 +69,13 @@
       for (var i = 0; i < myList.length; i++) {
         var row$ = $('<tr/>');
          
-          if(myList[i]["sentiment"]==1){
-            var cellValue = myList[i]["comment"];
+          if(myList[i]._source["polarity"]==1){
+            var cellValue = myList[i]._source["comment"];
           } else{
             continue;
           }
           
-          var cellValue = myList[i]["comment"];
+          var cellValue = myList[i]._source["comment"];
           if (cellValue == null) cellValue = "";
           row$.append($('<td/>').html(cellValue));
           if(selector=="#positiveTable"){
@@ -85,13 +86,13 @@
         var row$ = $('<tr/>');
                 
          
-          if(myList[i]["sentiment"]==-1){
-            var cellValue = myList[i]["comment"];
+          if(myList[i]._source["polarity"]==-1){
+            var cellValue = myList[i]._source["comment"];
           } else{
             continue;
           }
           
-          var cellValue = myList[i]["comment"];
+          var cellValue = myList[i]._source["comment"];
           if (cellValue == null) cellValue = "";
           row$.append($('<td/>').html(cellValue));
           if(selector=="#negativeTable"){
