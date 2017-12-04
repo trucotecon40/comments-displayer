@@ -69,13 +69,13 @@
       for (var i = 0; i < myList.length; i++) {
         var row$ = $('<tr/>');
          
-          if(myList[i]._source["polarity"]==1){
-            var cellValue = myList[i]._source["comment"];
+          if(myList[i]["polarity"]==1){
+            var cellValue = myList[i]["comment"];
           } else{
             continue;
           }
           
-          var cellValue = myList[i]._source["comment"];
+          var cellValue = myList[i]["comment"];
           if (cellValue == null) cellValue = "";
           row$.append($('<td/>').html(cellValue));
           if(selector=="#positiveTable"){
@@ -86,13 +86,13 @@
         var row$ = $('<tr/>');
                 
          
-          if(myList[i]._source["polarity"]==-1){
-            var cellValue = myList[i]._source["comment"];
+          if(myList[i]["polarity"]==-1){
+            var cellValue = myList[i]["comment"];
           } else{
             continue;
           }
           
-          var cellValue = myList[i]._source["comment"];
+          var cellValue = myList[i]["comment"];
           if (cellValue == null) cellValue = "";
           row$.append($('<td/>').html(cellValue));
           if(selector=="#negativeTable"){
