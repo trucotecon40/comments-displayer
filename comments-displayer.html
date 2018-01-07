@@ -131,8 +131,8 @@
             },
           generalDisplay: function(selector = ''){
               var myList = document.getElementById('comments-displayer1').getComments();
-              var positiveIcon = "";
-              var negativeIcon = "";
+              var positiveIcon = "✔";
+              var negativeIcon = "✘";
               for (var i = 0; i < myList.length; i++) {
                 var cellValue = myList[i]["comment"];
                   if(myList[i]["polarity"]==1){
