@@ -9,3 +9,22 @@
 	text-align: center;
 	display: block;
 }
+.widget-wrapper {
+	text-align: center;
+    width: 100%;	
+	border-radius: 20px 20px 0px 0px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.top-widget {
+    width: 100%;
+    background-color: #1275c2;
+    border-radius: 20px 20px 0 0;
+    color: white;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    font-size: 1.2em;
+}
+#comments-table{
+	padding: 10px 10px 10px 10px;
+}
