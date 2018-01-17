@@ -1,4 +1,4 @@
-0<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-icons/maps-icons.html">
@@ -11,19 +11,19 @@
    
 
     <body>
-    <div class="widget-wrapper">
-    <div class="top-widget">
-    Comments
-    </div>
-    <div style="background-color: #f9f9f9; text-align: center; display: inline-flex; width: 100%; justify-content: space-evenly;">
-    <div onclick="drawGeneralTable();" style="width: 100%; font-size: 14px;"><strong>All</strong></div><div onclick="drawPositiveTable();"  style="width: 100%; font-size: 14px;"><strong>Positive</strong></div><div onclick="drawNegativeTable();"  style="width: 100%; font-size: 14px;"><strong>Negative</strong></div>
-    </div>
-    <div id="default" style="text-align: center; font-size: 1.5em; vertical-align: middle;
-    line-height: 250px;">
-      Choose an option to display the requested comments.
-    </div>
-    <div id="comments-table">
-    </div>
+      <div class="widget-wrapper">
+        <div class="top-widget">
+          Comments
+        </div>
+        <div style="background-color: #f9f9f9; text-align: center; display: inline-flex; width: 100%; justify-content: space-evenly;">
+          <div onclick="drawGeneralTable();" style="width: 100%; font-size: 14px;"><strong>All</strong></div><div onclick="drawPositiveTable();"  style="width: 100%; font-size: 14px;"><strong>Positive</strong></div><div onclick="drawNegativeTable();"  style="width: 100%; font-size: 14px;"><strong>Negative</strong></div>
+        </div>
+        <div id="default" style="text-align: center; font-size: 1.5em; vertical-align: middle;
+        line-height: 250px;">
+        Choose an option to display the requested comments.
+      </div>
+      <div id="comments-table">
+      </div>
     </div>
     <!--<h1 style="text-align: center;">Comments</h1>
     <p id="drawcomments"><button id="commentsdrawer" onclick="drawComments();">Display Comments</button></p>
@@ -40,129 +40,132 @@
           Negative
         </th>
       </tr>
-      </table>-->
-    </body>
-    <script>
+    </table>-->
+  </body>
+  <script>
+    
     function drawGeneralTable(){
       $('#default').hide();
       $('#comments-table').empty();
-      document.getElementById('comments-displayer1').generalDisplay();
+      document.getElementById("{{id}}").generalDisplay();
     }
     function drawPositiveTable(){
       $('#default').hide();
       $('#comments-table').empty();
-      document.getElementById('comments-displayer1').generalDisplay("positive");
+      document.getElementById("{{id}}").generalDisplay("positive");
     }
     function drawNegativeTable(){
       $('#default').hide();
       $('#comments-table').empty();
-      document.getElementById('comments-displayer1').generalDisplay("negative");
+      document.getElementById("{{id}}").generalDisplay("negative");
     }        
     function drawComments(){
-        document.getElementById('comments-displayer1').displayComments("#positiveTable");
-        document.getElementById('comments-displayer1').displayComments("#negativeTable");
-        document.getElementById('drawcomments').style.display='none';
-        document.getElementById('positiveTable').style.display='';
-        document.getElementById('negativeTable').style.display='';                
+      document.getElementById("{{id}}").displayComments("#positiveTable");
+      document.getElementById("{{id}}").displayComments("#negativeTable");
+      document.getElementById('drawcomments').style.display='none';
+      document.getElementById('positiveTable').style.display='';
+      document.getElementById('negativeTable').style.display='';                
     }
     
-    </script>
+  </script>
 
-  </template>
+</template>
 
-    <script>
+<script>
 
+  
+  var numberMax = 0;
+  Polymer({
+    is: 'comments-displayer',
+    properties: {
+      comments: {
+        type: String,
+        value: "{{comments}}",
+        observer: '_dataChanged' 
+      },
+      id: {
+        type: String,
+        value: "{{id}}", 
+      }              
+    },
+    _dataChanged: function() {
+      if(this.comments == undefined){
+        return;
+      }
       
-      var numberMax = 0;
-        Polymer({
-            is: 'comments-displayer',
-            properties: {
-              comments: {
-                type: String,
-                value: "{{comments}}",
-                observer: '_dataChanged' 
-              }              
-            },
-            _dataChanged: function() {
-              console.log("data has changed")
-              if(this.comments == undefined){
-                console.log("No new comments");
-                return;
-              }
-              
-            },
-            getComments: function() {
-              console.log(this.comments);
-              return this.comments;
-            },
-            displayComments: function(selector){
-              var myList = document.getElementById('comments-displayer1').getComments();
-              for (var i = 0; i < myList.length; i++) {
-                var row$ = $('<tr/>');
-                  if(myList[i]["polarity"]==1){
-                    var cellValue = myList[i]["comment"];
-                  } else{
-                    continue;
-                  }
-                  var cellValue = myList[i]["comment"];
-                  if (cellValue == null) cellValue = "";
-                  row$.append($('<td/>').html(cellValue));
-                  if(selector=="#positiveTable"){
-                  $(selector).append(row$);
-                }
-              }
-              for (var i = 0; i < myList.length; i++) {
-                var row$ = $('<tr/>');
-                        
-                 
-                  if(myList[i]["polarity"]==-1){
-                    var cellValue = myList[i]["comment"];
-                  } else{
-                    continue;
-                  }
-                  
-                  var cellValue = myList[i]["comment"];
-                  if (cellValue == null) cellValue = "";
-                  row$.append($('<td/>').html(cellValue));
-                  if(selector=="#negativeTable"){
-                  $(selector).append(row$);
-                }
-              }        
-            },
-          generalDisplay: function(selector = ''){
-              var myList = document.getElementById('comments-displayer1').getComments();
-              var positiveIcon = "✔";
-              var negativeIcon = "✘";
-              for (var i = 0; i < myList.length; i++) {
-                var cellValue = myList[i]["comment"];
-                  if(myList[i]["polarity"]==1){
-                    if(selector=="negative"){ 
-                      continue;
-                    } else{
-                      var row = '<div style="display: inline-flex; text-align: center; background-color: rgba(153, 204, 255, 0.53); width: 100%;     margin: 5px 0px 5px 0px; border-radius: 10px;">';
-                      row = row + '<div style="font-size: 3em; color: green; margin: 0px 10px 0px 10px; padding-left: 15px; padding-right: 15px; text-align: center; vertical-align: middle; line-height: 56px; ">';
-                      var icon = positiveIcon;
-                    }
-                  } else{
-                    if(selector=="positive"){
-                      continue;
-                    } else{
-                      var row = '<div style="display: inline-flex; text-align: center; background-color: rgba(255, 82, 82, .2); width: 100%;     margin: 5px 0px 5px 0px; border-radius: 10px; text-align: center; vertical-align: middle; line-height: 56px; ">';
-                      var icon = negativeIcon;
-                      row = row + '<div style="font-size: 3em; color: red; margin: 0px 10px 0px 10px; padding-left: 15px; padding-right: 15px;">';
-                    }
-                  }
-                  if (cellValue == null) cellValue = "";
-                  row = row + icon + '</div><div style="padding-left: 15px; padding-right: 15px; text-align: left; text-align: center; vertical-align: middle; line-height: 56px; ">' + cellValue + '</div></div><br>';
-                  $('#comments-table').append(row);
-              }                 
-            }   
+    },
+    getComments: function() {
 
-                      
+      return this.comments;
+    },
+    displayComments: function(selector){
+      var myList = document.getElementById(this.id).getComments();
+      for (var i = 0; i < myList.length; i++) {
+        var row$ = $('<tr/>');
+        if(myList[i]["polarity"]==1){
+          var cellValue = myList[i]["comment"];
+        } else{
+          continue;
+        }
+        var cellValue = myList[i]["comment"];
+        if (cellValue == null) cellValue = "";
+        row$.append($('<td/>').html(cellValue));
+        if(selector=="#positiveTable"){
+          $(selector).append(row$);
+        }
+      }
+      for (var i = 0; i < myList.length; i++) {
+        var row$ = $('<tr/>');
+        
+        
+        if(myList[i]["polarity"]==-1){
+          var cellValue = myList[i]["comment"];
+        } else{
+          continue;
+        }
+        
+        var cellValue = myList[i]["comment"];
+        if (cellValue == null) cellValue = "";
+        row$.append($('<td/>').html(cellValue));
+        if(selector=="#negativeTable"){
+          $(selector).append(row$);
+        }
+      }        
+    },
+    generalDisplay: function(selector = ''){
+      var myList = document.getElementById(this.id).getComments();
+      var positiveIcon = "✔";
+      var negativeIcon = "✘";
+      for (var i = 0; i < myList.length; i++) {
+        var cellValue = myList[i]["comment"];
+        if(myList[i]["polarity"]==1){
+          if(selector=="negative"){ 
+            continue;
+          } else{
+            var row = '<div style="display: inline-flex; text-align: center; background-color: rgba(153, 204, 255, 0.53); width: 100%;     margin: 5px 0px 5px 0px; border-radius: 10px;">';
+            row = row + '<div style="font-size: 3em; color: green; margin: 0px 10px 0px 10px; padding-left: 15px; padding-right: 15px; text-align: center; vertical-align: middle; line-height: 56px; ">';
+            var icon = positiveIcon;
+          }
+        } else{
+          if(selector=="positive"){
+            continue;
+          } else{
+            var row = '<div style="display: inline-flex; text-align: center; background-color: rgba(255, 82, 82, .2); width: 100%;     margin: 5px 0px 5px 0px; border-radius: 10px; text-align: center; vertical-align: middle; line-height: 56px; ">';
+            var icon = negativeIcon;
+            row = row + '<div style="font-size: 3em; color: red; margin: 0px 10px 0px 10px; padding-left: 15px; padding-right: 15px;">';
+          }
+        }
+        if (cellValue == null) cellValue = "";
+        row = row + icon + '</div><div style="padding-left: 15px; padding-right: 15px; text-align: left; text-align: center; vertical-align: middle; line-height: 56px; ">' + cellValue + '</div></div><br>';
+        $('#comments-table').append(row);
+      }                 
+    }   
 
-            
+    
 
-        });
-    </script>
+    
+
+  });
+</script>
 
 </dom-module>
